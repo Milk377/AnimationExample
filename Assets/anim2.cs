@@ -9,9 +9,19 @@ public class anim2 : MonoBehaviour
     public void Rotate1()
     {
         // 90에 도달하는 순간 끝인데 계속 도니까 뻑뻑한다.
-        
+        // 도달시 멈추는걸로 하니까 끝 
         Vector3 nowRotation = gameObject.transform.rotation.eulerAngles;
-        gameObject.transform.rotation = Quaternion.Euler(nowRotation + new Vector3(2, 0, 0));
+
+        if (gameObject.transform.rotation.eulerAngles.x < Quaternion.Euler(targetRotation).eulerAngles.x) 
+        {
+            gameObject.transform.rotation = Quaternion.Euler(nowRotation + new Vector3(2, 0, 0));
+
+        } 
+        else if (gameObject.transform.rotation.eulerAngles.x >= Quaternion.Euler(targetRotation).eulerAngles.x)
+        {
+            StopCoroutine("DoRotate1");
+            Debug.Log("StopCoroutine Rotate1");
+        }
     }
 
     IEnumerator DoRotate1()
